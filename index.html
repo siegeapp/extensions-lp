@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Powerful Browser Extensions for Everyday Productivity</title>
   <meta name="description" content="Discover simple, fast and useful Chrome extensions built to make your browsing experience better.">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G9VBW589JW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G9VBW589JW');
+  </script>
+
   <style>
     :root {
       --bg: #080b14;
@@ -612,6 +623,15 @@
           card.rel = "noopener noreferrer";
           card.dataset.category = item.category;
           card.dataset.name = name;
+          card.addEventListener("click", () => {
+            if (typeof gtag === "function") {
+              gtag("event", "extension_click", {
+                extension_id: item.id,
+                extension_name: name,
+                extension_category: item.category
+              });
+            }
+          });
           card.innerHTML = [
             '<div class="card-head">',
             `<img src="${item.icon}" alt="${name} icon">`,
