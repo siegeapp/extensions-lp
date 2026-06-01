@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Powerful Browser Extensions for Everyday Productivity</title>
   <meta name="description" content="Discover simple, fast and useful Chrome extensions built to make your browsing experience better.">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G9VBW589JW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G9VBW589JW');
+  </script>
+
   <style>
     :root {
       --bg: #080b14;
@@ -660,6 +671,18 @@
             `<p>${description}</p>`,
             `<div class="store-links">${links.join("")}</div>`
           ].join("");
+          card.querySelectorAll(".store-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              if (typeof gtag === "function") {
+                gtag("event", "extension_click", {
+                  extension_id: item.id,
+                  extension_name: name,
+                  extension_category: item.category,
+                  store: link.classList.contains("edge") ? "edge" : "chrome"
+                });
+              }
+            });
+          });
           extensionsGrid.appendChild(card);
         });
 
