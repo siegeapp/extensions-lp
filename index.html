@@ -22,6 +22,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" id="twitterTitle" content="Best Chrome &amp; Edge Extensions for Productivity">
   <meta name="twitter:description" id="twitterDescription" content="Discover 13+ free Chrome and Edge extensions for productivity, tools, privacy, and media.">
+  <meta name="twitter:image" content="https://siegeapp.github.io/extensions-lp/images/clock.webp">
   <script type="application/ld+json" id="structuredData"></script>
 
   <!-- Google tag (gtag.js) -->
@@ -209,6 +210,62 @@
     .section-subtitle {
       color: var(--text-muted);
       margin-bottom: 10px;
+    }
+
+    .seo-section {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .seo-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .seo-lead,
+    .seo-body {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 920px;
+      margin-bottom: 12px;
+    }
+
+    .seo-faq-title {
+      font-size: 1rem;
+      margin: 20px 0 12px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+      max-width: 920px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 14px;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #dce4ff;
+      list-style: none;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 10px;
     }
 
     .controls {
@@ -501,14 +558,13 @@
 
     <section class="section" id="extensions" aria-labelledby="sectionTitle">
       <div class="section-header">
-        <h2 class="section-title" id="sectionTitle">Featured Extensions</h2>
+        <h1 class="section-title" id="sectionTitle">Featured Extensions</h1>
         <label for="languageSelect" class="language-label">
           <span id="languageLabel">Language</span>
           <select id="languageSelect" aria-label="Language selector">
           </select>
         </label>
       </div>
-      <p class="section-subtitle" id="sectionSubtitle">Browse productivity, tools, finance, media, and privacy extensions available on the Chrome Web Store and Microsoft Edge Add-ons.</p>
 
       <div class="controls">
         <div class="filters" id="filterButtons"></div>
@@ -516,6 +572,14 @@
 
       <div class="extensions-grid" id="extensionsGrid"></div>
       <div id="emptyState" class="empty-state">No extensions found for your current filters.</div>
+
+      <section class="seo-section" aria-labelledby="seoTitle">
+        <h2 class="seo-title" id="seoTitle">Free Chrome &amp; Edge Browser Extensions</h2>
+        <p class="seo-lead" id="seoLead"></p>
+        <p class="seo-body" id="seoBody"></p>
+        <h3 class="seo-faq-title" id="faqTitle">Frequently Asked Questions</h3>
+        <div class="faq-list" id="faqList"></div>
+      </section>
     </section>
 
     <section class="section" aria-labelledby="whyTitle">
@@ -808,6 +872,168 @@
         }
       };
 
+      const seoFaqTemplate = {
+        en: [
+          { q: "Are these Chrome and Edge extensions free?", a: "Yes. Every extension on this page is free to install from the official Chrome Web Store or Microsoft Edge Add-ons." },
+          { q: "How do I install an extension?", a: "Click the Chrome or Edge button on any card to open the official store listing, then select Add to Chrome or Get." },
+          { q: "Do these extensions work on both Chrome and Edge?", a: "Yes. All extensions are published on both stores, so you can use them in either Chromium-based browser." },
+          { q: "Are these extensions privacy-friendly?", a: "They are built with a privacy-first mindset, focused on useful features and transparent behavior without unnecessary data collection." }
+        ],
+        pt_BR: [
+          { q: "Essas extensões para Chrome e Edge são gratuitas?", a: "Sim. Todas as extensões desta página são gratuitas na Chrome Web Store ou na loja de complementos do Microsoft Edge." },
+          { q: "Como instalo uma extensão?", a: "Clique no botão Chrome ou Edge em qualquer card para abrir a página oficial da loja e selecione Adicionar ao Chrome ou Obter." },
+          { q: "As extensões funcionam no Chrome e no Edge?", a: "Sim. Todas estão publicadas nas duas lojas e funcionam em navegadores baseados em Chromium." },
+          { q: "As extensões respeitam a privacidade?", a: "Foram desenvolvidas com foco em privacidade, recursos úteis e comportamento transparente, sem coleta desnecessária de dados." }
+        ],
+        es: [
+          { q: "¿Son gratuitas estas extensiones de Chrome y Edge?", a: "Sí. Todas las extensiones de esta página son gratuitas en Chrome Web Store o Microsoft Edge Add-ons." },
+          { q: "¿Cómo instalo una extensión?", a: "Haz clic en Chrome o Edge en cualquier tarjeta para abrir la tienda oficial y selecciona Añadir a Chrome u Obtener." },
+          { q: "¿Funcionan en Chrome y Edge?", a: "Sí. Todas están publicadas en ambas tiendas y funcionan en navegadores basados en Chromium." },
+          { q: "¿Son respetuosas con la privacidad?", a: "Están diseñadas con enfoque en privacidad, funciones útiles y comportamiento transparente." }
+        ],
+        fr: [
+          { q: "Ces extensions Chrome et Edge sont-elles gratuites ?", a: "Oui. Chaque extension de cette page est gratuite sur le Chrome Web Store ou Microsoft Edge Add-ons." },
+          { q: "Comment installer une extension ?", a: "Cliquez sur Chrome ou Edge sur une carte pour ouvrir la boutique officielle, puis Ajouter à Chrome ou Obtenir." },
+          { q: "Fonctionnent-elles sur Chrome et Edge ?", a: "Oui. Toutes sont publiées sur les deux boutiques et compatibles avec les navigateurs Chromium." },
+          { q: "Respectent-elles la confidentialité ?", a: "Elles sont conçues avec une approche axée sur la confidentialité et un comportement transparent." }
+        ],
+        de: [
+          { q: "Sind diese Chrome- und Edge-Erweiterungen kostenlos?", a: "Ja. Alle Erweiterungen auf dieser Seite sind kostenlos im Chrome Web Store oder bei Microsoft Edge Add-ons." },
+          { q: "Wie installiere ich eine Erweiterung?", a: "Klicken Sie auf Chrome oder Edge auf einer Karte, um die offizielle Store-Seite zu öffnen, und wählen Sie Hinzufügen oder Abrufen." },
+          { q: "Funktionieren sie in Chrome und Edge?", a: "Ja. Alle sind in beiden Stores verfügbar und laufen in Chromium-basierten Browsern." },
+          { q: "Sind sie datenschutzfreundlich?", a: "Sie wurden mit Datenschutz im Fokus, nützlichen Funktionen und transparentem Verhalten entwickelt." }
+        ],
+        it: [
+          { q: "Queste estensioni Chrome e Edge sono gratuite?", a: "Sì. Ogni estensione in questa pagina è gratuita su Chrome Web Store o Microsoft Edge Add-ons." },
+          { q: "Come installo un'estensione?", a: "Clicca Chrome o Edge su una scheda per aprire lo store ufficiale, poi Aggiungi a Chrome o Ottieni." },
+          { q: "Funzionano su Chrome e Edge?", a: "Sì. Sono pubblicate su entrambi gli store e funzionano su browser Chromium." },
+          { q: "Rispettano la privacy?", a: "Sono progettate con un approccio privacy-first, funzioni utili e comportamento trasparente." }
+        ],
+        ja: [
+          { q: "これらのChrome・Edge拡張機能は無料ですか？", a: "はい。このページの拡張機能はすべてChrome Web StoreまたはMicrosoft Edge Add-onsで無料インストールできます。" },
+          { q: "拡張機能のインストール方法は？", a: "各カードのChromeまたはEdgeボタンをクリックし、公式ストアで「Chromeに追加」または「入手」を選択してください。" },
+          { q: "ChromeとEdgeの両方で使えますか？", a: "はい。すべて両方のストアで公開されており、Chromiumベースのブラウザで利用できます。" },
+          { q: "プライバシーに配慮していますか？", a: "プライバシーを重視し、有用な機能と透明な動作を目指して開発されています。" }
+        ],
+        ko: [
+          { q: "이 Chrome 및 Edge 확장 프로그램은 무료인가요?", a: "네. 이 페이지의 모든 확장 프로그램은 Chrome 웹 스토어 또는 Microsoft Edge Add-ons에서 무료로 설치할 수 있습니다." },
+          { q: "확장 프로그램은 어떻게 설치하나요?", a: "카드의 Chrome 또는 Edge 버튼을 클릭해 공식 스토어 페이지를 연 뒤 Chrome에 추가 또는 받기를 선택하세요." },
+          { q: "Chrome과 Edge 모두에서 작동하나요?", a: "네. 모든 확장 프로그램이 두 스토어에 게시되어 Chromium 기반 브라우저에서 사용할 수 있습니다." },
+          { q: "개인정보를 존중하나요?", a: "프라이버시 우선 접근 방식으로 유용한 기능과 투명한 동작에 초점을 맞춰 개발되었습니다." }
+        ],
+        zh_CN: [
+          { q: "这些 Chrome 和 Edge 扩展免费吗？", a: "是的。此页面上的所有扩展均可从 Chrome 应用商店或 Microsoft Edge 加载项免费安装。" },
+          { q: "如何安装扩展？", a: "点击任意卡片上的 Chrome 或 Edge 按钮打开官方商店页面，然后选择添加到 Chrome 或获取。" },
+          { q: "是否同时支持 Chrome 和 Edge？", a: "是的。所有扩展均发布在两个商店，可在基于 Chromium 的浏览器中使用。" },
+          { q: "是否注重隐私？", a: "扩展以隐私为先，专注于实用功能和透明行为，避免不必要的数据收集。" }
+        ],
+        ru: [
+          { q: "Эти расширения для Chrome и Edge бесплатны?", a: "Да. Все расширения на этой странице бесплатны в Chrome Web Store или Microsoft Edge Add-ons." },
+          { q: "Как установить расширение?", a: "Нажмите Chrome или Edge на карточке, откройте официальную страницу магазина и выберите Установить." },
+          { q: "Работают ли они в Chrome и Edge?", a: "Да. Все опубликованы в обоих магазинах и работают в браузерах на Chromium." },
+          { q: "Соблюдают ли они конфиденциальность?", a: "Они разработаны с приоритетом приватности, полезными функциями и прозрачным поведением." }
+        ],
+        ar: [
+          { q: "هل إضافات Chrome و Edge هذه مجانية؟", a: "نعم. كل إضافة في هذه الصفحة مجانية من Chrome Web Store أو Microsoft Edge Add-ons." },
+          { q: "كيف أثبت إضافة؟", a: "انقر على Chrome أو Edge في أي بطاقة لفتح صفحة المتجر الرسمية ثم اختر إضافة إلى Chrome أو الحصول." },
+          { q: "هل تعمل على Chrome و Edge؟", a: "نعم. جميعها منشورة في المتجرين وتعمل على متصفحات Chromium." },
+          { q: "هل تحترم الخصوصية؟", a: "صُممت بعقلية الخصوصية أولاً مع ميزات مفيدة وسلوك شفاف." }
+        ],
+        hi: [
+          { q: "क्या ये Chrome और Edge एक्सटेंशन मुफ्त हैं?", a: "हाँ। इस पेज की सभी एक्सटेंशन Chrome Web Store या Microsoft Edge Add-ons से मुफ्त इंस्टॉल होती हैं।" },
+          { q: "एक्सटेंशन कैसे इंस्टॉल करें?", a: "किसी भी कार्ड पर Chrome या Edge बटन क्लिक करें, आधिकारिक स्टोर पेज खोलें और Add to Chrome या Get चुनें।" },
+          { q: "क्या ये Chrome और Edge दोनों में काम करती हैं?", a: "हाँ। सभी दोनों स्टोर पर उपलब्ध हैं और Chromium ब्राउज़र में चलती हैं।" },
+          { q: "क्या ये प्राइवेसी-फ्रेंडली हैं?", a: "ये प्राइवेसी-फर्स्ट दृष्टिकोण, उपयोगी फीचर्स और पारदर्शी व्यवहार के साथ बनाई गई हैं।" }
+        ],
+        tr: [
+          { q: "Bu Chrome ve Edge eklentileri ücretsiz mi?", a: "Evet. Bu sayfadaki tüm eklentiler Chrome Web Store veya Microsoft Edge Add-ons üzerinden ücretsiz kurulabilir." },
+          { q: "Bir eklenti nasıl kurulur?", a: "Herhangi bir karttaki Chrome veya Edge düğmesine tıklayın, resmi mağaza sayfasını açın ve Ekle veya Al seçeneğini kullanın." },
+          { q: "Chrome ve Edge'de çalışır mı?", a: "Evet. Tümü her iki mağazada yayınlanır ve Chromium tabanlı tarayıcılarda çalışır." },
+          { q: "Gizlilik dostu mudur?", a: "Gizlilik öncelikli yaklaşımla, faydalı özellikler ve şeffaf davranışla geliştirilmiştir." }
+        ]
+      };
+
+      const seoByLang = {
+        en: {
+          title: "Free Chrome & Edge Browser Extensions for Productivity",
+          lead: "Browse 13+ free browser extensions for Google Chrome and Microsoft Edge — productivity timers, image downloaders, video speed controls, QR tools, crypto trackers, screenshot capture, and privacy cleaners.",
+          body: "Each extension links directly to the official Chrome Web Store and Microsoft Edge Add-ons listing. Install in one click, filter by category, and switch this page to 13 languages. All tools are lightweight, free, and built for everyday browsing workflows.",
+          faqTitle: "Frequently Asked Questions"
+        },
+        pt_BR: {
+          title: "Extensões Grátis para Chrome e Edge — Produtividade e Ferramentas",
+          lead: "Explore mais de 13 extensões gratuitas para Google Chrome e Microsoft Edge — timers, download de imagens, controle de vídeo, QR code, cripto, captura de tela e limpeza de privacidade.",
+          body: "Cada extensão leva direto à Chrome Web Store ou à loja oficial do Microsoft Edge. Instale com um clique, filtre por categoria e use esta página em 13 idiomas. Ferramentas leves, gratuitas e feitas para o dia a dia.",
+          faqTitle: "Perguntas Frequentes"
+        },
+        es: {
+          title: "Extensiones Gratis para Chrome y Edge — Productividad y Herramientas",
+          lead: "Explora más de 13 extensiones gratuitas para Google Chrome y Microsoft Edge: temporizadores, descargador de imágenes, control de video, QR, cripto, capturas y privacidad.",
+          body: "Cada extensión enlaza a Chrome Web Store o Microsoft Edge Add-ons. Instala con un clic, filtra por categoría y cambia el idioma de la página entre 13 opciones.",
+          faqTitle: "Preguntas Frecuentes"
+        },
+        fr: {
+          title: "Extensions Gratuites Chrome et Edge — Productivité et Outils",
+          lead: "Découvrez plus de 13 extensions gratuites pour Google Chrome et Microsoft Edge : minuteurs, téléchargeur d'images, vitesse vidéo, QR, crypto, captures et confidentialité.",
+          body: "Chaque extension mène vers le Chrome Web Store ou Microsoft Edge Add-ons. Installez en un clic, filtrez par catégorie et consultez la page en 13 langues.",
+          faqTitle: "Questions Fréquentes"
+        },
+        de: {
+          title: "Kostenlose Chrome & Edge Browser-Erweiterungen",
+          lead: "Entdecke über 13 kostenlose Erweiterungen für Google Chrome und Microsoft Edge — Timer, Bild-Downloader, Video-Tempo, QR, Krypto, Screenshots und Datenschutz.",
+          body: "Jede Erweiterung verlinkt direkt zum Chrome Web Store oder Microsoft Edge Add-ons. Installation mit einem Klick, Filter nach Kategorie und 13 Sprachen verfügbar.",
+          faqTitle: "Häufig Gestellte Fragen"
+        },
+        it: {
+          title: "Estensioni Gratuite per Chrome e Edge",
+          lead: "Scopri oltre 13 estensioni gratuite per Google Chrome e Microsoft Edge: timer, download immagini, velocità video, QR, crypto, screenshot e privacy.",
+          body: "Ogni estensione punta al Chrome Web Store o Microsoft Edge Add-ons. Installa con un clic, filtra per categoria e usa la pagina in 13 lingue.",
+          faqTitle: "Domande Frequenti"
+        },
+        ja: {
+          title: "無料のChrome・Edge拡張機能 — 生産性とツール",
+          lead: "Google ChromeとMicrosoft Edge向けの無料拡張機能13以上を掲載 — タイマー、画像ダウンロード、動画速度、QR、暗号資産、スクリーンショット、プライバシーなど。",
+          body: "各拡張機能からChrome Web StoreまたはMicrosoft Edge Add-onsの公式ページへ直接移動できます。ワンクリックでインストール、カテゴリで絞り込み、13言語に対応。",
+          faqTitle: "よくある質問"
+        },
+        ko: {
+          title: "무료 Chrome & Edge 브라우저 확장 프로그램",
+          lead: "Google Chrome과 Microsoft Edge용 무료 확장 프로그램 13개 이상 — 타이머, 이미지 다운로드, 비디오 속도, QR, 암호화폐, 스크린샷, 개인정보 도구.",
+          body: "각 확장 프로그램은 Chrome 웹 스토어 또는 Microsoft Edge Add-ons 공식 페이지로 연결됩니다. 원클릭 설치, 카테고리 필터, 13개 언어 지원.",
+          faqTitle: "자주 묻는 질문"
+        },
+        zh_CN: {
+          title: "免费 Chrome 和 Edge 浏览器扩展",
+          lead: "浏览 13+ 款适用于 Google Chrome 和 Microsoft Edge 的免费扩展 — 计时器、图片下载、视频调速、二维码、加密货币、截图和隐私工具。",
+          body: "每个扩展均链接至 Chrome 应用商店或 Microsoft Edge 加载项官方页面。一键安装，按分类筛选，支持 13 种语言。",
+          faqTitle: "常见问题"
+        },
+        ru: {
+          title: "Бесплатные расширения для Chrome и Edge",
+          lead: "Более 13 бесплатных расширений для Google Chrome и Microsoft Edge — таймеры, загрузчик изображений, скорость видео, QR, крипто, скриншоты и приватность.",
+          body: "Каждое расширение ведёт в Chrome Web Store или Microsoft Edge Add-ons. Установка в один клик, фильтр по категориям, 13 языков.",
+          faqTitle: "Частые Вопросы"
+        },
+        ar: {
+          title: "إضافات مجانية لـ Chrome و Edge",
+          lead: "أكثر من 13 إضافة مجانية لـ Google Chrome وMicrosoft Edge — مؤقتات، تنزيل الصور، سرعة الفيديو، QR، العملات الرقمية، لقطات الشاشة والخصوصية.",
+          body: "كل إضافة ترتبط مباشرة بـ Chrome Web Store أو Microsoft Edge Add-ons. تثبيت بنقرة واحدة، تصفية حسب الفئة، و13 لغة.",
+          faqTitle: "الأسئلة الشائعة"
+        },
+        hi: {
+          title: "मुफ्त Chrome और Edge ब्राउज़र एक्सटेंशन",
+          lead: "Google Chrome और Microsoft Edge के लिए 13+ मुफ्त एक्सटेंशन — टाइमर, इमेज डाउनलोड, वीडियो स्पीड, QR, क्रिप्टो, स्क्रीनशॉट और प्राइवेसी टूल्स।",
+          body: "हर एक्सटेंशन सीधे Chrome Web Store या Microsoft Edge Add-ons पर जाती है। एक क्लिक में इंस्टॉल, श्रेणी फ़िल्टर और 13 भाषाएँ।",
+          faqTitle: "अक्सर पूछे जाने वाले प्रश्न"
+        },
+        tr: {
+          title: "Ücretsiz Chrome ve Edge Tarayıcı Eklentileri",
+          lead: "Google Chrome ve Microsoft Edge için 13+ ücretsiz eklenti — zamanlayıcı, görsel indirici, video hızı, QR, kripto, ekran görüntüsü ve gizlilik araçları.",
+          body: "Her eklenti doğrudan Chrome Web Store veya Microsoft Edge Add-ons sayfasına gider. Tek tıkla kurulum, kategori filtresi ve 13 dil desteği.",
+          faqTitle: "Sık Sorulan Sorular"
+        }
+      };
+
       const extensionData = [
         { id: "img", icon: "https://lh3.googleusercontent.com/-2D7Iu4_cAyMYGxmF-pn1KYO78BjJhzjdOH-BnwnLac0c5PVyN841wCXtsHeifAPIpiJwY_9D8D6-Fv2rABBBsIYky0=s128", url: "https://chromewebstore.google.com/detail/mmehagcgobifajenenomcbbcdabnjooh", edgeUrl: "https://microsoftedge.microsoft.com/addons/detail/plnnnhnpjjlkbikhknnmkpllenkphnfe", edgeIcon: "https://msedgeaddonswebprod-csgrcxaka5g7bdap.b01.azurefd.net/public/user/d11ebea3-ef41-4a3a-8f63-3c63f019212a/logoicon", category: "tools", names: { en: "Image Downloader Assistant - Batch Save Images", pt_BR: "Assistente de Download de Imagens - Salvar em Lote", es: "Asistente de Descarga de Imágenes - Guardado por Lotes", fr: "Assistant de Téléchargement d'Images - Sauvegarde par Lots", de: "Bild-Download-Assistent - Bilder im Paket speichern", it: "Assistente Download Immagini - Salvataggio in Blocco", ja: "画像ダウンロードアシスタント - 一括保存", ko: "이미지 다운로드 도우미 - 일괄 저장", zh_CN: "图片下载助手 - 批量保存", ru: "Помощник загрузки изображений - пакетное сохранение", ar: "مساعد تنزيل الصور - حفظ دفعي", hi: "इमेज डाउनलोड असिस्टेंट - बैच सेव", tr: "Gorsel Indirme Asistani - Toplu Kaydetme" }, descriptions: { en: "Save images from websites in seconds with a clean one-click workflow built for speed and convenience.", pt_BR: "Salve imagens de sites em segundos com um fluxo de um clique rapido e pratico.", es: "Guarda imagenes de sitios web en segundos con un flujo limpio de un clic.", fr: "Enregistrez des images de sites en quelques secondes avec un flux clair en un clic.", de: "Speichern Sie Bilder von Websites in Sekunden mit einem klaren Ein-Klick-Workflow.", it: "Salva immagini dai siti in pochi secondi con un flusso pulito a un clic.", ja: "ワンクリックの快適な操作で、Webサイトの画像を数秒で保存できます。", ko: "원클릭 워크플로우로 웹사이트 이미지를 몇 초 만에 저장하세요.", zh_CN: "通过简洁的一键流程，在几秒内保存网页图片。", ru: "Сохраняйте изображения с сайтов за секунды с удобным рабочим процессом в один клик.", ar: "احفظ الصور من المواقع خلال ثوان عبر سير عمل نظيف بنقرة واحدة.", hi: "एक साफ वन-क्लिक वर्कफ्लो के साथ वेबसाइट से इमेज सेकंडों में सेव करें।", tr: "Temiz tek tik akisiyla web sitelerindeki gorselleri saniyeler icinde kaydedin." } },
         { id: "video", icon: "https://lh3.googleusercontent.com/WPKtA0OSXayHlAIYtpyCf6jq7sUEvbQvKBsjixVx58f-m44t9Rqfr0i1itm2682uvxKNyzCcmTt8Tcx7G9xGSVA-r7w=s128", url: "https://chromewebstore.google.com/detail/gmpgnedihbpapkkeafjehjnlgnghlmjd", edgeUrl: "https://microsoftedge.microsoft.com/addons/detail/gcoehecbgogpiakimhlljbdkmoocifik", edgeIcon: "https://msedgeaddonswebprod-csgrcxaka5g7bdap.b01.azurefd.net/public/user/d562fc46-25d8-4672-8809-66844d4c8877/logoicon", category: "media", names: { en: "Video Speed Controller - Universal Video Playback Speed", pt_BR: "Controlador de Velocidade de Video", es: "Controlador de Velocidad de Video", fr: "Controleur de Vitesse Video", de: "Video-Geschwindigkeitsregler", it: "Controllo Velocita Video", ja: "動画速度コントローラー", ko: "비디오 속도 컨트롤러", zh_CN: "视频速度控制器", ru: "Контроллер скорости видео", ar: "وحدة التحكم بسرعة الفيديو", hi: "वीडियो स्पीड कंट्रोलर", tr: "Video Hiz Denetleyici" }, descriptions: { en: "Take control of your playback with smooth speed adjustments for lessons, podcasts, and streaming sessions.", pt_BR: "Controle a reproducao com ajustes suaves de velocidade para aulas, podcasts e streaming.", es: "Controla la reproduccion con ajustes suaves de velocidad para clases, podcasts y streaming.", fr: "Controlez la lecture avec des ajustements fluides de vitesse pour cours, podcasts et streaming.", de: "Steuern Sie die Wiedergabe mit flussigen Geschwindigkeitsanpassungen fur Kurse, Podcasts und Streaming.", it: "Controlla la riproduzione con regolazioni fluide della velocita per lezioni, podcast e streaming.", ja: "レッスン、ポッドキャスト、配信向けに再生速度をスムーズに調整できます。", ko: "강의, 팟캐스트, 스트리밍에 맞춰 재생 속도를 부드럽게 조절하세요.", zh_CN: "为课程、播客和流媒体提供流畅的播放速度调节。", ru: "Управляйте воспроизведением с плавной настройкой скорости для уроков, подкастов и стриминга.", ar: "تحكم في التشغيل عبر ضبط سلس للسرعة للدروس والبودكاست والبث.", hi: "कक्षाओं, पॉडकास्ट और स्ट्रीमिंग के लिए प्लेबैक स्पीड को स्मूथ तरीके से कंट्रोल करें।", tr: "Dersler, podcastler ve yayinlar icin oynatma hizini akici sekilde ayarlayin." } },
@@ -849,6 +1075,34 @@
         const localFilters = (uiTranslations[currentLang] || {}).filters || {};
         const enFilters = uiTranslations.en.filters || {};
         return localFilters[category] || enFilters[category] || category;
+      }
+
+      function seoText(key) {
+        const block = seoByLang[currentLang] || seoByLang.en;
+        return block[key] || seoByLang.en[key] || "";
+      }
+
+      function getSeoFaq() {
+        return seoFaqTemplate[currentLang] || seoFaqTemplate.en;
+      }
+
+      function renderSeoContent() {
+        const setText = (id, value) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = value;
+        };
+        setText("seoTitle", seoText("title"));
+        setText("seoLead", seoText("lead"));
+        setText("seoBody", seoText("body"));
+        setText("faqTitle", seoText("faqTitle"));
+        const faqListEl = document.getElementById("faqList");
+        if (!faqListEl) return;
+        faqListEl.innerHTML = getSeoFaq().map((item) => [
+          '<details class="faq-item">',
+          `<summary>${item.q}</summary>`,
+          `<p>${item.a}</p>`,
+          "</details>"
+        ].join("")).join("");
       }
 
       function resolveLocalizedText(obj) {
@@ -934,16 +1188,32 @@
             "@type": "SoftwareApplication",
             name: resolveLocalizedText(item.names),
             description: resolveLocalizedText(item.descriptions),
+            image: SITE_URL + "/images/" + item.id + ".webp",
             applicationCategory: categorySchemaMap[item.category] || "BrowserApplication",
             operatingSystem: "Chrome, Edge",
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            url: item.url || item.edgeUrl
+            url: item.url || item.edgeUrl,
+            downloadUrl: [item.url, item.edgeUrl].filter(Boolean)
           }
         }));
+
+        const faqSchema = {
+          "@type": "FAQPage",
+          mainEntity: getSeoFaq().map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a }
+          }))
+        };
 
         structuredDataEl.textContent = JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
+            {
+              "@type": "Organization",
+              name: "Siege Extensions",
+              url: SITE_URL + "/"
+            },
             {
               "@type": "WebSite",
               name: "Siege Extensions",
@@ -964,8 +1234,21 @@
                 numberOfItems: extensionData.length,
                 itemListElement: itemList
               }
-            }
+            },
+            faqSchema
           ]
+        });
+      }
+
+      function updateOgLocaleAlternates() {
+        document.querySelectorAll('meta[data-seo="og-locale-alt"]').forEach((node) => node.remove());
+        supportedLangs.forEach((lang) => {
+          if (lang === currentLang) return;
+          const meta = document.createElement("meta");
+          meta.setAttribute("property", "og:locale:alternate");
+          meta.setAttribute("content", ogLocaleMap[lang] || "en_US");
+          meta.setAttribute("data-seo", "og-locale-alt");
+          document.head.appendChild(meta);
         });
       }
 
@@ -996,6 +1279,7 @@
         setMetaContent('meta[name="twitter:description"]', pageDescription);
 
         updateHreflangLinks();
+        updateOgLocaleAlternates();
         updateStructuredData(pageTitle, pageDescription);
       }
 
@@ -1111,11 +1395,11 @@
         setText("heroTitle", t("heroTitle"));
         setText("heroSubtitle", t("heroSubtitle"));
         setText("sectionTitle", t("sectionTitle"));
-        setText("sectionSubtitle", t("sectionSubtitle"));
         if (searchInput) {
           searchInput.placeholder = t("searchPlaceholder");
         }
         setText("emptyState", t("empty"));
+        renderSeoContent();
         setText("whyTitle", t("whyTitle"));
         setText("benefitFastTitle", t("fastTitle"));
         setText("benefitFastText", t("fastText"));
