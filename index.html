@@ -11,14 +11,14 @@
   <meta name="author" content="Siege Extensions">
   <meta name="theme-color" content="#080b14">
   <link rel="canonical" id="canonicalLink" href="https://siegeapp.github.io/extensions-lp/">
-  <link rel="icon" href="https://lh3.googleusercontent.com/Z7ccr1fU_n3XxnC6ju5SqkvO5UMmTLz3AO32yu_C42rHg3kl92XF5sFoY_Ueq4fVX272csRvP3bK1Fczhkz5fn6P31I=s128" type="image/png">
+  <link rel="icon" href="images/clock.webp" type="image/webp">
   <meta property="og:site_name" content="Siege Extensions">
   <meta property="og:type" content="website">
   <meta property="og:title" id="ogTitle" content="Best Chrome &amp; Edge Extensions for Productivity">
   <meta property="og:description" id="ogDescription" content="Discover 13+ free Chrome and Edge extensions for productivity, tools, privacy, and media.">
   <meta property="og:url" id="ogUrl" content="https://siegeapp.github.io/extensions-lp/">
   <meta property="og:locale" id="ogLocale" content="en_US">
-  <meta property="og:image" content="https://lh3.googleusercontent.com/Z7ccr1fU_n3XxnC6ju5SqkvO5UMmTLz3AO32yu_C42rHg3kl92XF5sFoY_Ueq4fVX272csRvP3bK1Fczhkz5fn6P31I=s128">
+  <meta property="og:image" content="https://siegeapp.github.io/extensions-lp/images/clock.webp">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" id="twitterTitle" content="Best Chrome &amp; Edge Extensions for Productivity">
   <meta name="twitter:description" id="twitterDescription" content="Discover 13+ free Chrome and Edge extensions for productivity, tools, privacy, and media.">
@@ -64,11 +64,12 @@
       color: var(--text);
       min-height: 100vh;
       line-height: 1.5;
-      padding: 10px 15px;
+      padding: 10px clamp(12px, 2.5vw, 40px);
     }
 
     .container {
-      width: min(1350px, 100%);
+      width: 100%;
+      max-width: none;
       margin: 0 auto;
     }
 
@@ -182,6 +183,29 @@
       margin-bottom: 10px;
     }
 
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .section-header .section-title {
+      margin-bottom: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .language-label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: #d9e3ff;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
     .section-subtitle {
       color: var(--text-muted);
       margin-bottom: 10px;
@@ -264,8 +288,20 @@
 
     .extensions-grid {
       display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    }
+
+    @media (min-width: 1200px) {
+      .extensions-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1800px) {
+      .extensions-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
     }
 
     .extension-card {
@@ -276,10 +312,10 @@
       box-shadow: var(--shadow);
       text-decoration: none;
       color: inherit;
-      padding: 10px;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      min-height: 250px;
+      overflow: hidden;
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
@@ -289,25 +325,40 @@
       box-shadow: 0 24px 52px rgba(10, 16, 35, 0.55);
     }
 
-    .card-head {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 13px;
+    .card-media {
+      width: 100%;
+      line-height: 0;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .card-head img {
-      width: 58px;
-      height: 58px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      flex-shrink: 0;
+    .card-media img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 314 / 200;
+      object-fit: cover;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 14px 16px 16px;
+    }
+
+    .card-head {
+      margin-bottom: 10px;
+      width: 100%;
     }
 
     .card-head h3 {
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.35;
       letter-spacing: -0.01em;
+      width: 100%;
     }
 
     .tag {
@@ -327,7 +378,8 @@
     .extension-card p {
       color: var(--text-muted);
       font-size: 0.92rem;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
+      width: 100%;
     }
 
     .store-links {
@@ -422,33 +474,40 @@
 
     @media (max-width: 780px) {
       body {
-        padding: 18px;
+        padding: 18px 14px;
       }
 
       .hero {
         padding: 54px 20px;
       }
 
-      .extension-card {
-        min-height: 230px;
+      .section-header {
+        flex-wrap: wrap;
+      }
+
+      .language-label {
+        width: 100%;
+      }
+
+      #languageSelect {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header style="display:flex;justify-content:flex-end;">
-      <label for="languageSelect" style="display:flex;flex-direction:column;gap:6px;color:#d9e3ff;font-size:12px;">
-        <span id="languageLabel">Language</span>
-        <select id="languageSelect" aria-label="Language selector">
-        </select>
-      </label>
-    </header>
-
     <main id="mainContent">
 
     <section class="section" id="extensions" aria-labelledby="sectionTitle">
-      <h2 class="section-title" id="sectionTitle">Featured Extensions</h2>
+      <div class="section-header">
+        <h2 class="section-title" id="sectionTitle">Featured Extensions</h2>
+        <label for="languageSelect" class="language-label">
+          <span id="languageLabel">Language</span>
+          <select id="languageSelect" aria-label="Language selector">
+          </select>
+        </label>
+      </div>
       <p class="section-subtitle" id="sectionSubtitle">Browse productivity, tools, finance, media, and privacy extensions available on the Chrome Web Store and Microsoft Edge Add-ons.</p>
 
       <div class="controls">
@@ -765,7 +824,7 @@
         { id: "pomodoro", icon: "https://lh3.googleusercontent.com/H3mwUdU9YpOA_qd4A-nmXnFcLgLcBAadiMPJR7v2OZAsZVJMEaBQtPHvEyMb9ywSdEyQUP5-vYHpszU4nxBbuUPoZQ=s128", url: "https://chromewebstore.google.com/detail/bkbiklcbhkpphflodkdoedlokkknnebh", edgeUrl: "https://microsoftedge.microsoft.com/addons/detail/cjpfgipkkicleedpigbfjofeonnpiiee", edgeIcon: "https://msedgeaddonswebprod-csgrcxaka5g7bdap.b01.azurefd.net/public/user/ed938bbf-19f6-4d6d-9df8-a6e13f5d8f3d/logoicon", category: "productivity", names: { en: "Pomodoro Focus Timer", pt_BR: "Timer Pomodoro de Foco", es: "Temporizador Pomodoro de Enfoque", fr: "Minuteur Pomodoro Focus", de: "Pomodoro-Fokus-Timer", it: "Timer Pomodoro Focus", ja: "ポモドーロ集中タイマー", ko: "포모도로 집중 타이머", zh_CN: "番茄专注计时器", ru: "Таймер фокуса Pomodoro", ar: "مؤقت بومودورو للتركيز", hi: "पोमोडोरो फोकस टाइमर", tr: "Pomodoro Odak Zamanlayicisi" }, descriptions: { en: "Boost concentration with a clean Pomodoro timer workflow that helps you stay focused and avoid burnout.", pt_BR: "Aumente a concentracao com um fluxo Pomodoro limpo para manter foco e evitar esgotamento.", es: "Mejora la concentracion con un flujo Pomodoro claro para mantener el enfoque y evitar agotamiento.", fr: "Ameliorez votre concentration avec un flux Pomodoro clair pour rester focalise et eviter l'epuisement.", de: "Steigern Sie die Konzentration mit einem klaren Pomodoro-Workflow und vermeiden Sie Uberlastung.", it: "Aumenta la concentrazione con un flusso Pomodoro pulito per restare focalizzato.", ja: "シンプルなポモドーロワークフローで集中力を高め、疲労を防ぎます。", ko: "깔끔한 포모도로 워크플로우로 집중력을 높이고 번아웃을 줄이세요.", zh_CN: "通过简洁的番茄工作流提升专注，避免过度疲劳。", ru: "Повышайте концентрацию с помощью простого Pomodoro-цикла и снижайте риск выгорания.", ar: "عزز التركيز عبر تدفق بومودورو بسيط يساعدك على تجنب الارهاق.", hi: "क्लीन पोमोडोरो वर्कफ़्लो के साथ फोकस बढ़ाएं और बर्नआउट से बचें।", tr: "Temiz bir Pomodoro akisiyla odagi artirin ve tukenmisi onleyin." } }
       ];
 
-      const preferredAllOrder = ["clock", "img", "undo"];
+      const preferredAllOrder = ["clock", "img", "undo", "alarm", "qr", "monitix", "calc", "capture", "video", "chroma", "cleaner", "pomodoro", "crypto"];
       const filterOrder = ["all", "productivity", "tools", "finance", "media", "privacy"];
       const metaDescription = document.querySelector('meta[name="description"]');
       const metaKeywordsEl = document.getElementById("metaKeywords");
@@ -865,7 +924,10 @@
 
       function updateStructuredData(pageTitle, pageDescription) {
         if (!structuredDataEl) return;
-        const itemList = extensionData.map((item, index) => ({
+        const itemList = preferredAllOrder
+          .map((id) => extensionData.find((item) => item.id === id))
+          .filter(Boolean)
+          .map((item, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {
@@ -969,14 +1031,11 @@
 
       function renderCards() {
         const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
-        const prioritized = [
-          ...preferredAllOrder.map((id) => extensionData.find((item) => item.id === id)).filter(Boolean),
-          ...extensionData.filter((item) => !preferredAllOrder.includes(item.id))
-        ];
-
         const source = activeFilter === "all"
-          ? prioritized
-          : extensionData.filter((item) => item.category === activeFilter);
+          ? preferredAllOrder.map((id) => extensionData.find((item) => item.id === id)).filter(Boolean)
+          : preferredAllOrder
+              .map((id) => extensionData.find((item) => item.id === id))
+              .filter((item) => item && item.category === activeFilter);
 
         const filtered = source.filter((item) => {
           const name = resolveLocalizedText(item.names).toLowerCase();
@@ -1009,14 +1068,20 @@
             );
           }
 
+          const iconSrc = `images/${item.id}.webp`;
+
           card.innerHTML = [
+            '<div class="card-media">',
+            `<img src="${iconSrc}" alt="${name} - Chrome and Edge browser extension" width="314" height="200" loading="lazy" decoding="async">`,
+            "</div>",
+            '<div class="card-content">',
             '<div class="card-head">',
-            `<img src="${item.icon}" alt="${name} - Chrome and Edge browser extension icon" width="58" height="58" loading="lazy" decoding="async">`,
             `<h3>${name}</h3>`,
             "</div>",
             `<span class="tag">${tCategory(item.category)}</span>`,
             `<p>${description}</p>`,
-            `<div class="store-links">${links.join("")}</div>`
+            `<div class="store-links">${links.join("")}</div>`,
+            "</div>"
           ].join("");
           card.querySelectorAll(".store-link").forEach((link) => {
             link.addEventListener("click", () => {
